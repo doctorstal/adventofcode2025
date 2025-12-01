@@ -34,14 +34,32 @@ func firstDay() error {
 
 		switch inst[0] {
 		case 'L':
+			if pos == 0 && p != 0 {
+				res -= 1
+			}
 			pos -= p
+			for pos < 0 {
+				fmt.Println(inst)
+				pos += 100
+				res += 1
+			}
+			if pos == 0 {
+				fmt.Println(inst)
+				res += 1
+			}
 		case 'R':
 			pos += p
+			for pos >= 100 {
+				fmt.Println(inst)
+				pos -= 100
+				res += 1
+			}
 		}
-		pos = (pos + 100) % 100
-		if pos == 0 {
-			res += 1
-		}
+		// if pos == 0 {
+		// 	fmt.Println(inst)
+		// 	res += 1
+		// }
+		// fmt.Println(pos)
 	}
 	fmt.Printf("Answer: %d\n", res)
 	return nil
