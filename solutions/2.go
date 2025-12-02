@@ -8,7 +8,8 @@ import (
 
 func SecondDay() error {
 	fmt.Println("--- Day 2: Gift Shop ---")
-	lines, err := readFileLines("data/2_test.txt")
+	lines, err := readFileLines("data/2.txt")
+	// lines, err := readFileLines("data/2_test.txt")
 	if err != nil {
 		return err
 	}
@@ -35,7 +36,10 @@ func SecondDay() error {
 		}
 
 		for i := start; i <= end; i += 1 {
-			if repeatedTwice(i) {
+			// if repeatedTwice(i) {
+			// 	sum += uint64(i)
+			// }
+			if isSillyPattern(i) {
 				sum += uint64(i)
 			}
 		}
@@ -54,4 +58,28 @@ func repeatedTwice(n int) bool {
 		return false
 	}
 	return str[0:l/2] == str[l/2:]
+}
+
+func isSillyPattern(n int) bool {
+	str := strconv.FormatInt(int64(n), 10)
+	l := len(str)
+	for i := 1; i <= l/2; i++ {
+		if l%i != 0 {
+			continue
+		}
+		if containsSillyPatternN(str, str[0:i], l/i) {
+			return true
+		}
+	}
+	return false
+}
+
+func containsSillyPatternN(str, p string, n int) bool {
+	d := len(p)
+	for i := range n {
+		if str[i*d:(i+1)*d] != p {
+			return false
+		}
+	}
+	return true
 }
