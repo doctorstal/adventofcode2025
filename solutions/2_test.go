@@ -9,7 +9,6 @@ func Test_repeatedTwice(t *testing.T) {
 		n    int
 		want bool
 	}{
-		// TODO: Add test cases.
 		{"11", 11, true},
 		{"12", 12, false},
 		{"121", 121, false},
