@@ -27,7 +27,7 @@ func FourthDay() error {
 		}
 	}
 
-	fmt.Printf("Answer: %v\n", res)
+	fmt.Printf("Answer for pt2: %v\n", res)
 
 	res2 := 0
 
