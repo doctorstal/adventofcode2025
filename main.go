@@ -17,6 +17,8 @@ func main() {
 		solution = solutions.SecondDay
 	case "3":
 		solution = solutions.ThirdDay
+	case "4":
+	solution = solutions.FourthDay
 	default:
 		log.Fatal("Which day to solve? \nProvide number in run arguments")
 	}
