@@ -2,6 +2,7 @@ package solutions
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -9,6 +10,10 @@ import (
 type frange struct {
 	start int
 	end   int
+}
+
+func (f frange) len() int {
+	return f.end - f.start + 1
 }
 
 func FifthDay() error {
@@ -29,6 +34,15 @@ func FifthDay() error {
 		return err
 	}
 
+	ranges = mergeRanges(ranges)
+	fmt.Printf("ranges: %v\n", ranges)
+
+	freshListLen := 0
+	for _, r := range ranges {
+		freshListLen += r.len()
+	}
+	fmt.Printf("Answer pt2: %v\n", freshListLen)
+
 	freshCount := 0
 	for _, p := range products {
 		if isProductFresh(p, ranges) {
@@ -38,6 +52,28 @@ func FifthDay() error {
 	fmt.Printf("Answer: %v\n", freshCount)
 
 	return nil
+}
+
+func mergeRanges(input []frange) []frange {
+	slices.SortFunc(input, func(a, b frange) int {
+		return a.start - b.start
+	})
+
+	output := make([]frange, 1)
+	output[0] = input[0]
+	li := 0
+
+	for _, r := range input {
+		if r.start > output[li].end {
+			output = append(output, r)
+			li = len(output) - 1
+		}
+		if r.end > output[li].end {
+			output[li].end = r.end
+		}
+	}
+
+	return output
 }
 
 func isProductFresh(p int, ranges []frange) bool {
