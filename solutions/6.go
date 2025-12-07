@@ -15,8 +15,6 @@ func SixthDay() error {
 		return err
 	}
 
-	// numbers := make([][]int, 0)
-
 	actions := strings.Split(input[len(input)-1], " ")
 	actions = slices.DeleteFunc(actions, func(a string) bool { return a == "" })
 
@@ -55,5 +53,48 @@ func SixthDay() error {
 	}
 	fmt.Printf("Answer: %v\n", res)
 
+	input2 := make([][]rune, len(input))
+	for i, l := range input {
+		input2[i] = []rune(l)
+	}
+
+	numbers := make([]int, 0)
+	res2 := int64(0)
+
+	for j := len(input2[0]) - 1; j >= 0; j-- {
+		numbers = append(numbers, 0)
+		for _, l := range input2 {
+			switch l[j] {
+			case ' ':
+				continue
+			case '+':
+				res2 += sum(numbers)
+				numbers = numbers[:0]
+				j--
+			case '*':
+				res2 += mult(numbers)
+				numbers = numbers[:0]
+				j--
+			default:
+				numbers[len(numbers)-1] = numbers[len(numbers)-1]*10 + int(l[j]-'0')
+			}
+		}
+	}
+	fmt.Printf("Answer pt2: %v\n", res2)
 	return nil
+}
+
+func sum(numbers []int) (res int64) {
+	for _, n := range numbers {
+		res += int64(n)
+	}
+	return
+}
+
+func mult(numbers []int) (res int64) {
+	res = 1
+	for _, n := range numbers {
+		res *= int64(n)
+	}
+	return
 }
