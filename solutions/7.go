@@ -61,14 +61,14 @@ func totalTimelines(lastQuantumState []int) int {
 	times := 0
 	for _, r := range lastQuantumState {
 		if r > 0 {
-			times += int(r)
+			times += r
 		}
 	}
 	return times
 }
 
 func markTimelines(manifold [][]int) {
-	// technically we only need to keep track of current stat, i.e. last row for this
+	// technically we only need to keep track of current state, i.e. last row
 	// but it's nice to print whole result out
 	for i := 1; i < len(manifold); i++ {
 		for j := range manifold[i] {
