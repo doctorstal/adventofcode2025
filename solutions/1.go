@@ -32,18 +32,15 @@ func FirstDay() error {
 			}
 			pos -= p
 			for pos < 0 {
-				fmt.Println(inst)
 				pos += 100
 				res += 1
 			}
 			if pos == 0 {
-				fmt.Println(inst)
 				res += 1
 			}
 		case 'R':
 			pos += p
 			for pos >= 100 {
-				fmt.Println(inst)
 				pos -= 100
 				res += 1
 			}

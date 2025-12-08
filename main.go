@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
@@ -30,7 +31,9 @@ func main() {
 	default:
 		log.Fatal("Which day to solve? \nProvide number in run arguments")
 	}
+	started := time.Now()
 	if err := solution(); err != nil {
 		log.Fatal(err)
 	}
+	fmt.Printf("Elapsed: %s\n", time.Since(started))
 }
