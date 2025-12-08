@@ -68,8 +68,7 @@ func EighthDay() error {
 		pointToCircuit[i] = i
 	}
 
-	for i := range maxConn {
-		d := distances[i]
+	makeConnection := func(d distance, pointToCircuit map[int]int) {
 		p1c := pointToCircuit[d.p1]
 		p2c := pointToCircuit[d.p2]
 		if p1c != p2c {
@@ -79,6 +78,10 @@ func EighthDay() error {
 				}
 			}
 		}
+	}
+
+	for i := range maxConn {
+		makeConnection(distances[i], pointToCircuit)
 	}
 
 	circuitCount := make(map[int]int)
@@ -98,6 +101,30 @@ func EighthDay() error {
 		res *= curcuitsSizes[i]
 	}
 	fmt.Printf("Answer: %v\n", res)
+
+	lastConnected := distances[maxConn-1]
+
+	areAllConnected := func(pointToCircuit map[int]int) bool {
+		circuitIds := make(map[int]bool, 2)
+		for _, c := range pointToCircuit {
+			circuitIds[c] = true
+			if len(circuitIds) > 1 {
+				return false
+			}
+		}
+		return true
+	}
+
+	for i := maxConn; i < len(distances); i++ {
+		makeConnection(distances[i], pointToCircuit)
+		if areAllConnected(pointToCircuit) {
+			lastConnected = distances[i]
+			break
+		}
+	}
+
+	res2 := jboxes[lastConnected.p1].x * jboxes[lastConnected.p2].x
+	fmt.Printf("Answer pt2: %d\n", res2)
 
 	return nil
 }
