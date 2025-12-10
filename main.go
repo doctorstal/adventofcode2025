@@ -30,6 +30,8 @@ func main() {
 		solution = solutions.EighthDay
 	case "9":
 		solution = solutions.NinthDay
+	case "10":
+		solution = solutions.TenthDay
 	default:
 		log.Fatal("Which day to solve? \nProvide number in run arguments")
 	}
